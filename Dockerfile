@@ -9,7 +9,13 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
     && php -r "copy('https://phar.phpunit.de/phpunit-5.7.phar', 'phpunit-5.7.phar');" \
     && chmod +x phpunit-5.7.phar \
-    && mv phpunit-5.7.phar /usr/local/bin/phpunit
+    && mv phpunit-5.7.phar /usr/local/bin/phpunit \
+    && apk update \
+    && apk add build-base \
+    && apk add --update --virtual autoconf \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 
 ##install phploc
 RUN curl -OL https://phar.phpunit.de/phploc.phar \
